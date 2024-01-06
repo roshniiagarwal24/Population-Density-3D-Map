@@ -98,5 +98,28 @@ mat |>
           shadowdepth = 0)
 
 render_camera(theta = -20, phi = 45, zoom = .8)
+outfile <- "images/final_plot.png"
+
+{
+  start_time <- Sys.time()
+  cat(crayon::cyan(start_time), "\n")
+  if (!file.exists(outfile)) {
+    png::writePNG(matrix(1), target = outfile)
+  }
+  render_highquality(
+    filename = outfile,
+    interactive = FALSE,
+    lightdirection = 280,
+    lightaltitude = c(20, 80),
+    lightcolor = c(c1[2], "white"),
+    lightintensity = c(600, 100),
+    samples = 450,
+    width = 6000,
+    height = 6000
+  )
+  end_time <- Sys.time()
+  diff <- end_time - start_time
+  cat(crayon::cyan(diff), "\n")
+}
 
 #rgl::rgl.close() - use this for closing the map window if required
